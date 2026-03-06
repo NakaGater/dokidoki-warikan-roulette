@@ -17,9 +17,6 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: dokidoki-warikan-roulette
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -30,7 +27,6 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: dokidoki-warikan-roulette/package-lock.json
 
       - run: npm ci
       - run: npm run build
@@ -40,7 +36,7 @@ jobs:
           enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dokidoki-warikan-roulette/dist
+          path: dist
 
       - id: deployment
         uses: actions/deploy-pages@v4
